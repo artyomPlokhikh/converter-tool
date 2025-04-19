@@ -4,8 +4,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 
 from .serializers import ImageConvertSerializer, AudioConvertSerializer
-from .utils.image import convert_image
-from .utils.audio import convert_audio
+from .utils.image import convert_image as convert_image_file
+from .utils.audio import convert_audio as convert_audio_file
 
 PARSERS = [MultiPartParser, FormParser]
 
@@ -16,7 +16,7 @@ def convert_image(request) -> FileResponse:
     serializer = ImageConvertSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
-    buf, mime = convert_image(
+    buf, mime = convert_image_file(
         serializer.validated_data['image'],
         serializer.validated_data['format']
     )
@@ -36,7 +36,7 @@ def convert_audio(request) -> HttpResponse:
     serializer = AudioConvertSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
-    data, mime = convert_audio(
+    data, mime = convert_audio_file(
         serializer.validated_data['audio_file'],
         serializer.validated_data['format']
     )
