@@ -2,7 +2,7 @@
 	<div class="min-h-screen flex flex-col">
 		<app-header/>
 
-		<main class="flex-1 container mx-auto p-4">
+		<main class="flex-1 container mx-auto p-4 items-center h-screen">
 			<router-view/>
 		</main>
 

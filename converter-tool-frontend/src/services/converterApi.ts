@@ -2,17 +2,34 @@ import axios from 'axios'
 
 export async function convertImage(
 	file: File,
-	format: string
+	format: string,
 ): Promise<Blob> {
-	const form = new FormData()
-	form.append('image', file)
-	form.append('format', format)
+	const form = new FormData();
+	form.append('image', file);
+	form.append('format', format);
 
 	const response = await axios.post<Blob>(
 		'/convert-image',
 		form,
-		{ responseType: 'blob' }
-	)
+		{ responseType: 'blob' },
+	);
 
-	return response.data
+	return response.data;
+}
+
+export async function convertAudio(
+	file: File,
+	format: string,
+): Promise<Blob> {
+	const form = new FormData();
+	form.append('audio', file);
+	form.append('format', format);
+
+	const response = await axios.post<Blob>(
+		'/convert-audio',
+		form,
+		{ responseType: 'blob' },
+	);
+
+	return response.data;
 }
