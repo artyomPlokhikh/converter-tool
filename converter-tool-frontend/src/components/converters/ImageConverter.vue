@@ -36,8 +36,9 @@
 				<button
 					@click="clearFile"
 					type="button"
-					class="absolute top-0 right-0 m-2 z-10 bg-gray-800 bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-1 cursor-pointer"
+					class="absolute top-0 right-0 m-2 z-10 bg-gray-800 bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 					aria-label="Clear image"
+					:disabled="isLoading"
 				>
 					<x-mark-icon class="h-4 w-4"/>
 				</button>
@@ -57,7 +58,7 @@
 			<button
 				type="submit"
 				:disabled="!file || isLoading"
-				class="w-full bg-blue-600 text-white py-2 rounded cursor-pointer disabled:opacity-50"
+				class="w-full bg-blue-600 text-white py-2 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 			>
 				Convert
 			</button>
@@ -100,7 +101,7 @@ function setFile(f: File) {
 
 function onFileChange(e: Event) {
 	const input = e.target as HTMLInputElement
-	if (input.files && input.files[0]) {
+	if (input.files && input.files[0] && input.files[0].type.startsWith('image/')) {
 		setFile(input.files[0]);
 	}
 }
